@@ -3,6 +3,9 @@ import Image from "next/image";
 import "@fontsource/secular-one";
 import React, { useState } from "react";
 
+import { useRouter } from "next/router";
+import Loading from "../../components/Loading";
+
 export async function getStaticPaths() {
   const maxPokemons = 251;
   const api = "https://pokeapi.co/api/v2/pokemon";
@@ -18,7 +21,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 }
 
@@ -37,6 +40,12 @@ export const getStaticProps = async (context) => {
 };
 
 export default function Pokemon({ pokemon }) {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <Loading></Loading>;
+  }
+
   console.log(pokemon);
 
   let pokemonImage = `/images/pokeball.png`;
