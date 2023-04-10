@@ -3,7 +3,7 @@ import { getStaticProps } from "../pages";
 import Link from "next/link";
 
 export default function Card({ pokemon }) {
-  let pokemon_image = `/images/pokeball.png`;
+  let pokemonImage = `/images/pokeball.png`;
 
   const myLoader = ({ src }) => {
     return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
@@ -15,8 +15,8 @@ export default function Card({ pokemon }) {
         <div className="flex flex-col gap-4 justify-center items-center p-4 hover:scale-110 transition-all">
           <Image
             loader={myLoader}
-            src={pokemon_image}
-            srcSet={pokemon_image}
+            src={pokemonImage}
+            srcSet={pokemonImage}
             width={200}
             height={200}
             alt={pokemon.name}
