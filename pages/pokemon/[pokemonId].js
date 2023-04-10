@@ -93,11 +93,11 @@ export default function Pokemon({ pokemon }) {
     <>
       <div className="w-full h-full flex justify-center items-center p-4">
         <div
-          className="sticky border-red-500 aspect-[7/10] h-full bg-white rounded-3xl -rotate-3 hover:-rotate-6 shadow-lg bg-[image:var(--image-url)] bg-cover bg-center hover:scale-105 transition-all overflow-clip"
+          className="flex flex-col justify-around sticky border-red-500 aspect-[7/10] h-full bg-white rounded-3xl -rotate-3 hover:-rotate-6 shadow-lg bg-[image:var(--image-url)] bg-cover bg-center hover:scale-105 transition-all overflow-clip"
           style={{ "--image-url": `url(${cardImage})` }}
         >
           <div className="flex flex-row justify-between">
-            <div className="h-fit w-fit bg-gray-800 p-4 -rotate-6 flex flex-row gap-2 shadow-2xl">
+            <div className="h-fit w-fit bg-gray-800 p-4 -rotate-6 flex flex-row gap-2 shadow-2xl mt-4">
               <span className="text-white">Type:</span>
               {pokemonTypes.map((item, index) => (
                 <span
@@ -131,7 +131,7 @@ export default function Pokemon({ pokemon }) {
               priority={true}
             />
           </div>
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row justify-between items-end">
             <div className="flex flex-col">
               <div className="h-fit w-fit bg-red-800 p-4 -rotate-12 flex flex-row gap-2 shadow-2xl">
                 <span className="text-white">Height:</span>
@@ -145,7 +145,7 @@ export default function Pokemon({ pokemon }) {
                   {pokemon.weight / 10} kg
                 </span>
               </div>
-              <div className="h-fit w-fit bg-green-800 -mt-6 p-4 -rotate-12 flex flex-row items-center justify-center gap-2 shadow-2xl">
+              <div className="h-fit w-fit bg-green-800 p-4 -rotate-12 flex flex-row items-center justify-center gap-2 shadow-2xl -mt-4 mb-4">
                 <span className="text-white font-secular-one">Abilities:</span>
                 {/* {pokemon.abilities.map((item, index) => (
                   <span
