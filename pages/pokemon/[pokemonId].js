@@ -6,6 +6,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Loading from "../../components/Loading";
 
+import cardsBg from "../../utils/cardsBg";
+
 export async function getStaticPaths() {
   const maxPokemons = 251;
   const api = "https://pokeapi.co/api/v2/pokemon";
@@ -42,6 +44,12 @@ export const getStaticProps = async (context) => {
 export default function Pokemon({ pokemon }) {
   const [cardImage, setCardImage] = useState("/images/cards/bg_normal.jpg");
 
+  let pokemonTypes = pokemon.types.map((item) => item.type.name);
+
+  let typesOfPokemon = cardsBg.filter((item) => {
+    return pokemonTypes.includes(item.name);
+  });
+
   React.useEffect(() => {
     let i = 0;
     const interval = setInterval(() => {
@@ -53,7 +61,7 @@ export default function Pokemon({ pokemon }) {
       }
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [typesOfPokemon]);
 
   const router = useRouter();
 
@@ -64,35 +72,6 @@ export default function Pokemon({ pokemon }) {
   console.log(pokemon);
 
   let pokemonImage = `/images/pokeball.png`;
-
-  let cardsBg = [
-    { name: "bug", url: "/images/cards/bg_normal.jpg" },
-    { name: "dark", url: "/images/cards/bg_normal.jpg" },
-    { name: "dragon", url: "/images/cards/bg_normal.jpg" },
-    { name: "electric", url: "/images/cards/bg_electric.jpg" },
-    { name: "fairy", url: "/images/cards/bg_normal.jpg" },
-    { name: "fighting", url: "/images/cards/bg_normal.jpg" },
-    { name: "fire", url: "/images/cards/bg_fire.jpg" },
-    { name: "flying", url: "/images/cards/bg_flying.jpg" },
-    { name: "ghost", url: "/images/cards/bg_ghost.jpg" },
-    { name: "grass", url: "/images/cards/bg_grass.jpg" },
-    { name: "ground", url: "/images/cards/bg_normal.jpg" },
-    { name: "ice", url: "/images/cards/bg_ice.jpg" },
-    { name: "normal", url: "/images/cards/bg_normal.jpg" },
-    { name: "poison", url: "/images/cards/bg_poison.jpg" },
-    { name: "psychic", url: "/images/cards/bg_psychic.jpg" },
-    { name: "rock", url: "/images/cards/bg_rock.jpg" },
-    { name: "shadow", url: "/images/cards/bg_normal.jpg" },
-    { name: "steel", url: "/images/cards/bg_normal.jpg" },
-    { name: "unknown", url: "/images/cards/bg_normal.jpg" },
-    { name: "water", url: "/images/cards/bg_water.jpg" },
-  ];
-
-  let pokemonTypes = pokemon.types.map((item) => item.type.name);
-
-  let typesOfPokemon = cardsBg.filter((item) => {
-    return pokemonTypes.includes(item.name);
-  });
 
   const myLoader = ({ src }) => {
     return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
