@@ -40,6 +40,21 @@ export const getStaticProps = async (context) => {
 };
 
 export default function Pokemon({ pokemon }) {
+  const [cardImage, setCardImage] = useState("/images/cards/bg_normal.jpg");
+
+  React.useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < typesOfPokemon.length) {
+        setCardImage(typesOfPokemon[i].url);
+        i++;
+      } else {
+        i = 0;
+      }
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   const router = useRouter();
 
   if (router.isFallback) {
@@ -78,21 +93,6 @@ export default function Pokemon({ pokemon }) {
   let typesOfPokemon = cardsBg.filter((item) => {
     return pokemonTypes.includes(item.name);
   });
-
-  const [cardImage, setCardImage] = useState("/images/cards/bg_normal.jpg");
-
-  React.useEffect(() => {
-    let i = 0;
-    const interval = setInterval(() => {
-      if (i < typesOfPokemon.length) {
-        setCardImage(typesOfPokemon[i].url);
-        i++;
-      } else {
-        i = 0;
-      }
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
 
   const myLoader = ({ src }) => {
     return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
