@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getStaticProps } from "..";
+import { getStaticProps } from "../pages";
 import Link from "next/link";
 
 export default function Card({ pokemon }) {
