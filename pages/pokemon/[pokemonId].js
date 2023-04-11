@@ -109,11 +109,11 @@ export default function Pokemon({ pokemon }) {
     <>
       <div className="w-full h-full flex justify-center items-center p-4">
         <div
-          className="flex flex-col justify-around sticky border-red-500 aspect-[7/10] h-full bg-white rounded-3xl -rotate-3 hover:-rotate-6 shadow-lg bg-[image:var(--image-url)] bg-cover bg-center hover:scale-105 transition-all overflow-clip"
+          className="flex flex-col justify-around sticky border-red-500 aspect-[7/10] h-full bg-white rounded-3xl sm:-rotate-3 hover:sm:-rotate-6 shadow-lg bg-[image:var(--image-url)] bg-cover bg-center hover:scale-105 transition-all overflow-clip"
           style={{ "--image-url": `url(${cardImage})` }}
         >
           <div className="flex flex-row justify-between">
-            <div className="h-fit w-fit bg-gray-800 p-4 -rotate-6 flex flex-row gap-2 shadow-2xl mt-4">
+            <div className="h-fit w-fit bg-gray-800 p-4 sm:-rotate-6 flex flex-row gap-2 shadow-2xl mt-4 sm:mt-8">
               <span className="text-white">Type:</span>
               {pokemon.types.map((item, index) => (
                 <span
@@ -126,13 +126,13 @@ export default function Pokemon({ pokemon }) {
             </div>
             <div className="flex items-center w-full justify-end p-4">
               <span className="text-4xl">#</span>
-              <span className="relative z-50 text-8xl text-blue-900 text-stroke-2 text-stroke-white drop-shadow-lg font-secular-one">
+              <span className="relative z-50 text-5xl sm:text-8xl text-blue-900 text-stroke-2 text-stroke-white drop-shadow-lg font-secular-one">
                 {pokemon.id}
               </span>
             </div>
           </div>
           <div>
-            <h1 className="text-7xl drop-shadow-lg bg-gray-400 -rotate-12 text-center text-white font-secular-one">
+            <h1 className="text-5xl sm:text-7xl drop-shadow-lg bg-gray-400 sm:-rotate-12 text-center text-white font-secular-one">
               {pokemon.name}
             </h1>
           </div>
@@ -147,21 +147,21 @@ export default function Pokemon({ pokemon }) {
               priority={true}
             />
           </div>
-          <div className="flex flex-row justify-between items-end">
+          <div className="flex flex-row justify-between items-end -mt-10">
             <div className="flex flex-col">
-              <div className="h-fit w-fit bg-red-800 p-4 -rotate-12 flex flex-row gap-2 shadow-2xl">
+              <div className="h-fit w-fit bg-red-800 p-4 sm:-rotate-12 flex flex-row gap-2 shadow-2xl">
                 <span className="text-white">Height:</span>
                 <span className="text-2xl text-white font-secular-one">
                   {pokemon.height * 10} cm
                 </span>
               </div>
-              <div className="h-fit w-fit bg-blue-800 p-4 -rotate-12 flex flex-row gap-2 shadow-2xl">
+              <div className="h-fit w-fit bg-blue-800 p-4 sm:-rotate-12 flex flex-row gap-2 shadow-2xl">
                 <span className="text-white">Weight:</span>
                 <span className="text-2xl text-white font-secular-one">
                   {pokemon.weight / 10} kg
                 </span>
               </div>
-              <div className="h-fit w-fit bg-green-800 p-4 -rotate-12 flex flex-row items-center justify-center gap-2 shadow-2xl -mt-4 mb-4">
+              <div className="h-fit w-fit bg-green-800 p-4 sm:-rotate-12 flex flex-row items-center justify-center gap-2 shadow-2xl -mt-4 mb-4">
                 <span className="text-white font-secular-one">Abilities:</span>
                 {/* {pokemon.abilities.map((item, index) => (
                   <span
@@ -180,7 +180,7 @@ export default function Pokemon({ pokemon }) {
               </div>
             </div>
             <div className="flex flex-col">
-              <div className="h-fit w-fit bg-yellow-800 p-4 -mt-12 -rotate-6 flex flex-col items-center justify-center gap-2 shadow-2xl">
+              <div className="h-fit w-fit bg-yellow-800 p-4 -mt-28 sm:-mt-12 sm:-rotate-6 flex flex-col items-center justify-center gap-2 shadow-2xl">
                 <span className="text-white">Stats:</span>
                 {pokemon.stats.map((item, index) => (
                   <span
