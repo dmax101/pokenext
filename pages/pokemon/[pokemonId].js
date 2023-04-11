@@ -1,12 +1,10 @@
 import Image from "next/image";
 
 import "@fontsource/secular-one";
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useRouter } from "next/router";
 import Loading from "../../components/Loading";
-
-import cardsBg from "../../utils/cardsBg";
 
 export async function getStaticPaths() {
   const maxPokemons = 251;
@@ -42,34 +40,64 @@ export const getStaticProps = async (context) => {
 };
 
 export default function Pokemon({ pokemon }) {
+  const router = useRouter();
   const [cardImage, setCardImage] = useState("/images/cards/bg_normal.jpg");
 
-  let pokemonTypes = pokemon.types.map((item) => item.type.name);
+  useEffect(() => {
+    while (!pokemon) return;
 
-  let typesOfPokemon = cardsBg.filter((item) => {
-    return pokemonTypes.includes(item.name);
-  });
+    let cardsBg = [
+      { name: "bug", url: "/images/cards/bg_normal.jpg" },
+      { name: "dark", url: "/images/cards/bg_normal.jpg" },
+      { name: "dragon", url: "/images/cards/bg_normal.jpg" },
+      { name: "electric", url: "/images/cards/bg_electric.jpg" },
+      { name: "fairy", url: "/images/cards/bg_normal.jpg" },
+      { name: "fighting", url: "/images/cards/bg_normal.jpg" },
+      { name: "fire", url: "/images/cards/bg_fire.jpg" },
+      { name: "flying", url: "/images/cards/bg_flying.jpg" },
+      { name: "ghost", url: "/images/cards/bg_ghost.jpg" },
+      { name: "grass", url: "/images/cards/bg_grass.jpg" },
+      { name: "ground", url: "/images/cards/bg_normal.jpg" },
+      { name: "ice", url: "/images/cards/bg_ice.jpg" },
+      { name: "normal", url: "/images/cards/bg_normal.jpg" },
+      { name: "poison", url: "/images/cards/bg_poison.jpg" },
+      { name: "psychic", url: "/images/cards/bg_psychic.jpg" },
+      { name: "rock", url: "/images/cards/bg_rock.jpg" },
+      { name: "shadow", url: "/images/cards/bg_normal.jpg" },
+      { name: "steel", url: "/images/cards/bg_normal.jpg" },
+      { name: "unknown", url: "/images/cards/bg_normal.jpg" },
+      { name: "water", url: "/images/cards/bg_water.jpg" },
+    ];
 
-  React.useEffect(() => {
+    let pokemonTypesFlat = pokemon.types.flatMap((item) => {
+      return item.type.name;
+    });
+
+    let typesOfPokemon = cardsBg.filter((item) => {
+      return pokemonTypesFlat.includes(item.name);
+    });
+
     let i = 0;
     const interval = setInterval(() => {
       if (i < typesOfPokemon.length) {
         setCardImage(typesOfPokemon[i].url);
         i++;
+      } else if (!typesOfPokemon) {
+        setCardImage("/images/cards/bg_normal.jpg");
       } else {
         i = 0;
       }
     }, 5000);
     return () => clearInterval(interval);
-  }, [typesOfPokemon]);
+  }, [pokemon]);
 
-  const router = useRouter();
+  if (!pokemon) {
+    return <Loading></Loading>;
+  }
 
   if (router.isFallback) {
     return <Loading></Loading>;
   }
-
-  console.log(pokemon);
 
   let pokemonImage = `/images/pokeball.png`;
 
@@ -87,12 +115,12 @@ export default function Pokemon({ pokemon }) {
           <div className="flex flex-row justify-between">
             <div className="h-fit w-fit bg-gray-800 p-4 -rotate-6 flex flex-row gap-2 shadow-2xl mt-4">
               <span className="text-white">Type:</span>
-              {pokemonTypes.map((item, index) => (
+              {pokemon.types.map((item, index) => (
                 <span
                   key={index}
                   className="text-2xl text-white font-secular-one"
                 >
-                  {item}
+                  {item.type.name}
                 </span>
               ))}
             </div>
